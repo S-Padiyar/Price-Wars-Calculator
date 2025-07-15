@@ -1,168 +1,120 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Price Wars Game Calculator</title>
     <meta name="description" content="Calculator for Price Wars Game">
     <meta name="keywords" content="price calculator, game calculator, economics">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Viewport meta tag -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="icon" type="image/x-icon" href="coin.png">
-
-    <style>
-        body {
-            font-family: 'Lora', serif; /* Use serif as a fallback font */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-            background-color: rgb(195, 209, 195);
-        }
-        .container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            width: 80%;
-            max-width: 1200px; /* Limit the max width for larger screens */
-        }
-        .box {
-            padding: 15px;
-            background-color: #e3f2fd;
-            border: 2px solid #90caf9;
-            border-radius: 20px;
-            text-align: center;
-        }
-        .box h3 {
-            margin: 0 0 10px;
-        }
-        .price {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin: 10px 0;
-        }
-        .input-container {
-            margin-top: 10px;
-        }
-        .quantity {
-            font-size: 1.2em;
-            margin-top: 10px;
-        }
-        input[type="number"], input[type="text"] {
-            padding: 5px;
-            margin-top: 10px;
-            width: 60px;
-        }
-        button {
-            padding: 5px 10px;
-            margin-top: 10px;
-            background-color: #2196f3;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #1976d2;
-        }
-
-        @media (max-width: 600px) {
-            .container {
-                grid-template-columns: 1fr; /* Change to one column for small screens */
-            }
-            .box {
-                width: 90%; /* Ensure each box takes full width */
-            }
-        }
-    </style>
 </head>
-<body>
-
-    <h1>Price Wars Game Calculator</h1>
-    <div class="container">
-        <div class="box">
-            <h3>Weapons</h3>
-            <div class="price" id="price-weapons">$0.00</div>
-            <div class="input-container">
-                <input type="number" id="input-weapons" placeholder="%" step="0.1">
-                <button onclick="updatePrice('weapons')">Apply %</button>
-                <br>
-                <input type="text" id="set-price-weapons" placeholder="New Price">
-                <button onclick="setPrice('weapons')">Set Price</button>
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col items-center justify-center p-4 sm:p-6">
+    <div class="w-full max-w-7xl">
+        <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-8">Price Wars Game Calculator</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Weapons</h3>
+                <div class="price text-2xl font-bold text-blue-600 mb-4" id="price-weapons">$0.00</div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="input-weapons" placeholder="%" step="0.1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="updatePrice('weapons')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Apply %</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="set-price-weapons" placeholder="New Price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setPrice('weapons')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Set Price</button>
+                    </div>
+                    <div class="quantity text-gray-600">
+                        Quantity Demanded: <input type="number" id="quantity-weapons" value="0" min="0" class="w-20 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
             </div>
-            <div class="quantity">
-                Quantity Demanded: <input type="number" id="quantity-weapons" value="0" min="0">
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Wine</h3>
+                <div class="price text-2xl font-bold text-blue-600 mb-4" id="price-wine">$0.00</div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="input-wine" placeholder="%" step="0.1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="updatePrice('wine')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Apply %</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="set-price-wine" placeholder="New Price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setPrice('wine')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Set Price</button>
+                    </div>
+                    <div class="quantity text-gray-600">
+                        Quantity Demanded: <input type="number" id="quantity-wine" value="0" min="0" class="w-20 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="box">
-            <h3>Wine</h3>
-            <div class="price" id="price-wine">$0.00</div>
-            <div class="input-container">
-                <input type="number" id="input-wine" placeholder="%" step="0.1">
-                <button onclick="updatePrice('wine')">Apply %</button>
-                <br>
-                <input type="text" id="set-price-wine" placeholder="New Price">
-                <button onclick="setPrice('wine')">Set Price</button>
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Beer</h3>
+                <div class="price text-2xl font-bold text-blue-600 mb-4" id="price-beer">$0.00</div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="input-beer" placeholder="%" step="0.1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="updatePrice('beer')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Apply %</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="set-price-beer" placeholder="New Price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setPrice('beer')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Set Price</button>
+                    </div>
+                    <div class="quantity text-gray-600">
+                        Quantity Demanded: <input type="number" id="quantity-beer" value="0" min="0" class="w-20 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
             </div>
-            <div class="quantity">
-                Quantity Demanded: <input type="number" id="quantity-wine" value="0" min="0">
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Textiles</h3>
+                <div class="price text-2xl font-bold text-blue-600 mb-4" id="price-textiles">$0.00</div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="input-textiles" placeholder="%" step="0.1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="updatePrice('textiles')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Apply %</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="set-price-textiles" placeholder="New Price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setPrice('textiles')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Set Price</button>
+                    </div>
+                    <div class="quantity text-gray-600">
+                        Quantity Demanded: <input type="number" id="quantity-textiles" value="0" min="0" class="w-20 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="box">
-            <h3>Beer</h3>
-            <div class="price" id="price-beer">$0.00</div>
-            <div class="input-container">
-                <input type="number" id="input-beer" placeholder="%" step="0.1">
-                <button onclick="updatePrice('beer')">Apply %</button>
-                <br>
-                <input type="text" id="set-price-beer" placeholder="New Price">
-                <button onclick="setPrice('beer')">Set Price</button>
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Spices</h3>
+                <div class="price text-2xl font-bold text-blue-600 mb-4" id="price-spices">$0.00</div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="input-spices" placeholder="%" step="0.1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="updatePrice('spices')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Apply %</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="set-price-spices" placeholder="New Price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setPrice('spices')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Set Price</button>
+                    </div>
+                    <div class="quantity text-gray-600">
+                        Quantity Demanded: <input type="number" id="quantity-spices" value="0" min="0" class="w-20 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
             </div>
-            <div class="quantity">
-                Quantity Demanded: <input type="number" id="quantity-beer" value="0" min="0">
-            </div>
-        </div>
-        <div class="box">
-            <h3>Textiles</h3>
-            <div class="price" id="price-textiles">$0.00</div>
-            <div class="input-container">
-                <input type="number" id="input-textiles" placeholder="%" step="0.1">
-                <button onclick="updatePrice('textiles')">Apply %</button>
-                <br>
-                <input type="text" id="set-price-textiles" placeholder="New Price">
-                <button onclick="setPrice('textiles')">Set Price</button>
-            </div>
-            <div class="quantity">
-                Quantity Demanded: <input type="number" id="quantity-textiles" value="0" min="0">
-            </div>
-        </div>
-        <div class="box">
-            <h3>Spices</h3>
-            <div class="price" id="price-spices">$0.00</div>
-            <div class="input-container">
-                <input type="number" id="input-spices" placeholder="%" step="0.1">
-                <button onclick="updatePrice('spices')">Apply %</button>
-                <br>
-                <input type="text" id="set-price-spices" placeholder="New Price">
-                <button onclick="setPrice('spices')">Set Price</button>
-            </div>
-            <div class="quantity">
-                Quantity Demanded: <input type="number" id="quantity-spices" value="0" min="0">
-            </div>
-        </div>
-        <div class="box">
-            <h3>Maple Syrup</h3>
-            <div class="price" id="price-maple">$0.00</div>
-            <div class="input-container">
-                <input type="number" id="input-maple" placeholder="%" step="0.1">
-                <button onclick="updatePrice('maple')">Apply %</button>
-                <br>
-                <input type="text" id="set-price-maple" placeholder="New Price">
-                <button onclick="setPrice('maple')">Set Price</button>
-            </div>
-            <div class="quantity">
-                Quantity Demanded: <input type="number" id="quantity-maple" value="0" min="0">
+            <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-xl font-semibold text-gray-700 mb-4">Maple Syrup</h3>
+                <div class="price text-2xl font-bold text-blue-600 mb-4" id="price-maple">$0.00</div>
+                <div class="space-y-4">
+                    <div class="flex items-center gap-2">
+                        <input type="number" id="input-maple" placeholder="%" step="0.1" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="updatePrice('maple')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Apply %</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="set-price-maple" placeholder="New Price" class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button onclick="setPrice('maple')" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors duration-200">Set Price</button>
+                    </div>
+                    <div class="quantity text-gray-600">
+                        Quantity Demanded: <input type="number" id="quantity-maple" value="0" min="0" class="w-20 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -194,6 +146,5 @@
             }
         }
     </script>
-
 </body>
 </html>
